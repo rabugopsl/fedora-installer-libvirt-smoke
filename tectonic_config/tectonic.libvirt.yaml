@@ -1,0 +1,40 @@
+licensePath: /opt/app-root/src/tectonic_config/tectonic-license.txt
+pullSecretPath: /opt/app-root/src/tectonic_config/tectonic-config.json
+ 
+admin:
+  email: "rbustamanteg@psl.com.co"
+  password: "verysecure"
+  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDL8Rn6FWaOjwIWt4cg/bhnuQwyzE+yHvj3yAF7iHdzv6ar/WwKePuC0UZPlVrsRCMHzefbwBnQp0t1fN66QvdTBdDsL79N9vC/7gWZ2m5tsPpako3bnlHwxQggsC+s8vPXagzbizcQFmDCtSyQ3O3ImidEXRzb067ovJiehkT8fyKbyx6P2lH1/jihk/gyjVavjlD1P7Tk++EDAIkS3AZH31A5Y/vBXqdmdMGDrVQFBBW51QbihdjIp9jPFG9kqpoJir9VIM/kBE3XDsUc36F3oEBae+MTmPfrjuMZsMjrJtWUkTtGGBf39zlAUx0MLZv0Elv8KGsh8sNH++x1miKCcR3ceBJLzyM6f02kU1sUq7dS2yKMo3fDFeN4DkdcuqY2r4lbzhU9OntlknTINVdABmwa3zFFuTGMN3SN9aWtyjdqrzSHKXKEBaFD/svWmMObRpWKtlgQ3WTw28YQXnws5qUs9SG52rJiW/OIYEjhV8GM4Dkr1L0ST6iTp/9jWBRfKin3RE09p/TDpMda3S1D3d82DBid9wfm3X5EcTwQfe4TZ97pGwjNgXaGec9Ol1MhvxwtM8yrw7RWE32xEvXEq5FzeGj8a+XW+OecjkKyx4OLxYJT4CasGSlWJ7asdT8aKATkB3Tx+R/ToUmwHYuPyFc1wtaCsArenn6GZfuyEw== rbustamanteg@psl.com.co"
+ 
+libvirt:
+  uri: qemu:///system
+  network:
+    name: tectonic
+    ifName: tt0
+    dnsServer: 8.8.8.8
+    ipRange: 192.168.124.0/24
+  imagePath: /opt/app-root/src/qemu-img/coreos_production_qemu_image.img
+
+baseDomain: openshiftdemo.org
+ 
+master:
+  nodePools:
+    - master
+ 
+name: tectoniccluster
+ 
+networking:
+  podCIDR: 10.2.0.0/16
+  serviceCIDR: 10.3.0.0/16
+ 
+nodePools:
+  - count: 1
+    name: master
+  - count: 1
+    name: worker
+ 
+platform: libvirt
+ 
+worker:
+  nodePools:
+    - worker
