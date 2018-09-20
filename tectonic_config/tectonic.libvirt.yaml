@@ -13,7 +13,7 @@ libvirt:
     ifName: tt0
     dnsServer: 8.8.8.8
     ipRange: 192.168.124.0/24
-  imagePath: /opt/app-root/src/qemu-img/coreos_production_qemu_image.img
+    imagePath: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
 
 baseDomain: openshiftdemo.org
  
