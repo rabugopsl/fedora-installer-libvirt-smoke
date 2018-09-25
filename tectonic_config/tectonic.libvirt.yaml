@@ -1,40 +1,112 @@
 licensePath: /opt/app-root/src/tectonic_config/tectonic-license.txt
-pullSecretPath: /opt/app-root/src/tectonic_config/tectonic-config.json
  
 admin:
-  email: "rbustamanteg@psl.com.co"
-  password: "verysecure"
-  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDL8Rn6FWaOjwIWt4cg/bhnuQwyzE+yHvj3yAF7iHdzv6ar/WwKePuC0UZPlVrsRCMHzefbwBnQp0t1fN66QvdTBdDsL79N9vC/7gWZ2m5tsPpako3bnlHwxQggsC+s8vPXagzbizcQFmDCtSyQ3O3ImidEXRzb067ovJiehkT8fyKbyx6P2lH1/jihk/gyjVavjlD1P7Tk++EDAIkS3AZH31A5Y/vBXqdmdMGDrVQFBBW51QbihdjIp9jPFG9kqpoJir9VIM/kBE3XDsUc36F3oEBae+MTmPfrjuMZsMjrJtWUkTtGGBf39zlAUx0MLZv0Elv8KGsh8sNH++x1miKCcR3ceBJLzyM6f02kU1sUq7dS2yKMo3fDFeN4DkdcuqY2r4lbzhU9OntlknTINVdABmwa3zFFuTGMN3SN9aWtyjdqrzSHKXKEBaFD/svWmMObRpWKtlgQ3WTw28YQXnws5qUs9SG52rJiW/OIYEjhV8GM4Dkr1L0ST6iTp/9jWBRfKin3RE09p/TDpMda3S1D3d82DBid9wfm3X5EcTwQfe4TZ97pGwjNgXaGec9Ol1MhvxwtM8yrw7RWE32xEvXEq5FzeGj8a+XW+OecjkKyx4OLxYJT4CasGSlWJ7asdT8aKATkB3Tx+R/ToUmwHYuPyFc1wtaCsArenn6GZfuyEw== rbustamanteg@psl.com.co"
- 
+  email: rbustamanteg@psl.com.co
+  password: verysecure
+  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDrju5gjaolJu4d2sOIlIKPPvt9gJuYpE797zXLA9xbd948rQPCSzsGpKAcfuunPtuOe9QahwkvfRQf6jiMEr7bwaqZocLAHL7cZZzCUFoTKg23Lk33+INJdt+KWWJvMAcvkTzAA6errNv1lqHQ+mKprHOVEgkXnQecDY+ojfpiF6SGlIPPEQZpX+a1Uoa7i1Kt4VaOm0DQon6d4G7RPaubiU2olyBwz9PSSlrHfmPsfmIvLUkqpVWj4Deq79saZJZtEnPelr6A8+E4Haguu8IUb3LxxjdQAPgtZsx+I2g/l8uwz3d0YFy5upL/MW5TCE9vddvwJb/ZL0rHXCERnJXWO5hLK0BDuWusgFp0fY63kbUq5Z1U74CQxe6+bbKfBQcLbb1BM2EDmKmRwNTrYYWv1UBXvVRFV7eaInCfPsrq+0LEeFH/hkdbMdb0hBPYpu47vdeKueDwtTBAMUfaWQN3l3/mH1YjGkLgOQjnYcz2bOwSw9HZV6C8UAJE9soX3wZOxdz+2bKINkOYlCfAb8QGOBLbVsceieTzhzPdaiaxg24SsfqbnUJkZUGbH+b6b0TlVUeomNUJNJ4kuQSSc5eT1zr+cAa1HH5FmVfB888m7lJCEiqk0EEixv30zfWjS7uzCBxErc1UDHna5wnO2u1xfxABNSw5ptFhl4tWh0XPEw== rbustamanteg@psl.com.co"
+
+
+baseDomain: testing
+
 libvirt:
-  uri: qemu:///system
+  uri: qemu+tcp://192.168.122.1/system
   network:
     name: tectonic
     ifName: tt0
-    dnsServer: 8.8.8.8
-    ipRange: 192.168.124.0/24
-    imagePath: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
+    ipRange: 192.168.124.0/24 
+  image: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
 
-baseDomain: openshiftdemo.org
- 
+
+ca:
+
+  # (optional) The content of the PEM-encoded CA certificate, used to generate Tectonic Console's server certificate. 
+  # If left blank, a CA certificate will be automatically generated.
+
+  # cert:
+  # (optional) The content of the PEM-encoded CA key, used to generate Tectonic Console's server certificate. 
+  # This field is mandatory if `ca_cert` is set.
+
+  # key:
+  # (optional) The algorithm used to generate ca_key. 
+  # The default value is currently recommended.
+  # This field is mandatory if `ca_cert` is set.
+
+  # keyAlg: RSA
+
+
+
+iscsi:
+
+  # (optional) Start iscsid.service to enable iscsi volume attachment. 
+  # enabled: false 
+
 master:
   nodePools:
-    - master
- 
-name: tectoniccluster
- 
+    - master 
+
+# The name of the cluster.
+
+# If used in a cloud-environment, this will be prepended to `baseDomain` resulting in the URL to the Tectonic console.
+
+#
+
+# Note: This field MUST be set manually prior to creating the cluster.
+
+# Warning: Special characters in the name like '.' may cause errors on OpenStack platforms due to resource name constraints.
+
+name: test1
+
 networking:
-  podCIDR: 10.2.0.0/16
-  serviceCIDR: 10.3.0.0/16
- 
+
+  # (optional) This declares the MTU used by Calico. 
+  # mtu: 
+  # (optional) This declares the IP range to assign Kubernetes pod IPs in CIDR notation.
+
+  podCIDR: 10.2.0.0/16 
+
+  # (optional) This declares the IP range to assign Kubernetes service cluster IPs in CIDR notation.
+
+  # The maximum size of this IP range is /12
+
+  serviceCIDR: 10.3.0.0/16 
+
+  # (optional) Configures the network to be used in Tectonic. One of the following values can be used:
+  #
+  # - "flannel": enables overlay networking only. This is implemented by flannel using VXLAN. 
+  #
+  # - "canal": enables overlay networking including network policy. Overlay is implemented by flannel using VXLAN. Network policy is implemented by Calico.  
+  #
+  # - "calico-ipip": [ALPHA] enables BGP based networking. Routing and network policy is implemented by Calico. Note this has been tested on baremetal installations only. 
+  #
+  # - "none": disables the installation of any Pod level networking layer provided by Tectonic. By setting this value, users are expected to deploy their own solution to enable network connectivity for Pods and Services. 
+  # type: flannel
+
 nodePools:
+    # The number of master nodes to be created. 
+    # This applies only to cloud platforms. 
   - count: 1
     name: master
+
+    # The number of worker nodes to be created.
+    # This applies only to cloud platforms. 
   - count: 1
     name: worker
- 
+
+# The platform used for deploying. 
 platform: libvirt
- 
+
+# The pull secret in JSON format.
+# This is known to be a "Docker pull secret" as produced by the docker login [1] command.
+# A sample JSON content is shown in [2].
+# You can download the pull secret from your Account overview page at [3].
+#
+# [1] https://docs.docker.com/engine/reference/commandline/login/
+#
+# [2] https://coreos.com/os/docs/latest/registry-authentication.html#manual-registry-auth-setup
+#
+# [3] https://account.coreos.com/overview
+pullSecret: '{"auths": {"quay.io": {"auth": "Y29yZW9zK3RlYzJfaWZidWdsandoYTNkaW4yYmlqY2MybjJlaTpLMVNEQjNVWTlHMUZQUFpKTFg5VTFOWlJIQjRURjA1WllEOTZBMjdSWTRYRVcwSVVKVkxWRFZFSDFDSlZNQlNS", "email": "" }}}'
+
 worker:
   nodePools:
     - worker
