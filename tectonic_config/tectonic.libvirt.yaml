@@ -2,18 +2,18 @@ licensePath: /opt/app-root/src/tectonic_config/tectonic-license.txt
 pullSecretPath: /opt/app-root/src/tectonic_config/tectonic-config.json
  
 admin:
-  email: "rbustamanteg@psl.com.co"
+  email: "admin@openshiftdemo.org"
   password: "verysecure"
-  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDL8Rn6FWaOjwIWt4cg/bhnuQwyzE+yHvj3yAF7iHdzv6ar/WwKePuC0UZPlVrsRCMHzefbwBnQp0t1fN66QvdTBdDsL79N9vC/7gWZ2m5tsPpako3bnlHwxQggsC+s8vPXagzbizcQFmDCtSyQ3O3ImidEXRzb067ovJiehkT8fyKbyx6P2lH1/jihk/gyjVavjlD1P7Tk++EDAIkS3AZH31A5Y/vBXqdmdMGDrVQFBBW51QbihdjIp9jPFG9kqpoJir9VIM/kBE3XDsUc36F3oEBae+MTmPfrjuMZsMjrJtWUkTtGGBf39zlAUx0MLZv0Elv8KGsh8sNH++x1miKCcR3ceBJLzyM6f02kU1sUq7dS2yKMo3fDFeN4DkdcuqY2r4lbzhU9OntlknTINVdABmwa3zFFuTGMN3SN9aWtyjdqrzSHKXKEBaFD/svWmMObRpWKtlgQ3WTw28YQXnws5qUs9SG52rJiW/OIYEjhV8GM4Dkr1L0ST6iTp/9jWBRfKin3RE09p/TDpMda3S1D3d82DBid9wfm3X5EcTwQfe4TZ97pGwjNgXaGec9Ol1MhvxwtM8yrw7RWE32xEvXEq5FzeGj8a+XW+OecjkKyx4OLxYJT4CasGSlWJ7asdT8aKATkB3Tx+R/ToUmwHYuPyFc1wtaCsArenn6GZfuyEw== rbustamanteg@psl.com.co"
+  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtnMQUQZ/miwODr78esCv5gbWLzOLnoXgR7m6HbzGEo+Vc4kHsLxANJTeGNBesKSzyLLZ30PdZtqepB0QA+v+kzxedq8X5AhOIgpc1pHWNL4+bH3XixBBg6J4eV6kPSjbLBKdnZDfYz6ulXDUHlbZzZvJGOzCuf4Po6pEQ/vkk3k5fRUphBsuHGKRGtTwmxoy3r3SN1TrTznj6NvuN80f+3xgtGP1OkZgVbsAZtno7geqwqQO5vQK6lNzriZ07fCbmNBI7aKyjkPtYliEBP8r6IHPrATo6gwy4pFEfsSECiAusTI1fLgDI0a9HKGkHDSMiRBzlSmhGibO+TH4xPIwX container"
  
 libvirt:
-  uri: qemu:///system
+  uri: qemu+tcp://192.168.122.1/system
   network:
     name: tectonic
     ifName: tt0
     dnsServer: 8.8.8.8
     ipRange: 192.168.124.0/24
-    imagePath: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
+  image: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
 
 baseDomain: openshiftdemo.org
  
