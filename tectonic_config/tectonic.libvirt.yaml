@@ -1,110 +1,39 @@
 licensePath: /opt/app-root/src/tectonic_config/tectonic-license.txt
  
 admin:
-  email: rbustamanteg@psl.com.co
-  password: verysecure
-  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDrju5gjaolJu4d2sOIlIKPPvt9gJuYpE797zXLA9xbd948rQPCSzsGpKAcfuunPtuOe9QahwkvfRQf6jiMEr7bwaqZocLAHL7cZZzCUFoTKg23Lk33+INJdt+KWWJvMAcvkTzAA6errNv1lqHQ+mKprHOVEgkXnQecDY+ojfpiF6SGlIPPEQZpX+a1Uoa7i1Kt4VaOm0DQon6d4G7RPaubiU2olyBwz9PSSlrHfmPsfmIvLUkqpVWj4Deq79saZJZtEnPelr6A8+E4Haguu8IUb3LxxjdQAPgtZsx+I2g/l8uwz3d0YFy5upL/MW5TCE9vddvwJb/ZL0rHXCERnJXWO5hLK0BDuWusgFp0fY63kbUq5Z1U74CQxe6+bbKfBQcLbb1BM2EDmKmRwNTrYYWv1UBXvVRFV7eaInCfPsrq+0LEeFH/hkdbMdb0hBPYpu47vdeKueDwtTBAMUfaWQN3l3/mH1YjGkLgOQjnYcz2bOwSw9HZV6C8UAJE9soX3wZOxdz+2bKINkOYlCfAb8QGOBLbVsceieTzhzPdaiaxg24SsfqbnUJkZUGbH+b6b0TlVUeomNUJNJ4kuQSSc5eT1zr+cAa1HH5FmVfB888m7lJCEiqk0EEixv30zfWjS7uzCBxErc1UDHna5wnO2u1xfxABNSw5ptFhl4tWh0XPEw== rbustamanteg@psl.com.co"
-
-
-baseDomain: testing
-
+  email: "admin@openshiftdemo.org"
+  password: "verysecure"
+  sshKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtnMQUQZ/miwODr78esCv5gbWLzOLnoXgR7m6HbzGEo+Vc4kHsLxANJTeGNBesKSzyLLZ30PdZtqepB0QA+v+kzxedq8X5AhOIgpc1pHWNL4+bH3XixBBg6J4eV6kPSjbLBKdnZDfYz6ulXDUHlbZzZvJGOzCuf4Po6pEQ/vkk3k5fRUphBsuHGKRGtTwmxoy3r3SN1TrTznj6NvuN80f+3xgtGP1OkZgVbsAZtno7geqwqQO5vQK6lNzriZ07fCbmNBI7aKyjkPtYliEBP8r6IHPrATo6gwy4pFEfsSECiAusTI1fLgDI0a9HKGkHDSMiRBzlSmhGibO+TH4xPIwX container"
+ 
 libvirt:
   uri: qemu+tcp://192.168.122.1/system
   network:
     name: tectonic
     ifName: tt0
-    ipRange: 192.168.124.0/24 
+    dnsServer: 8.8.8.8
+    ipRange: 192.168.124.0/24
   image: file:///opt/app-root/src/qemu-img/rhcos-qemu.qcow2
 
-
-ca:
-
-  # (optional) The content of the PEM-encoded CA certificate, used to generate Tectonic Console's server certificate. 
-  # If left blank, a CA certificate will be automatically generated.
-
-  # cert:
-  # (optional) The content of the PEM-encoded CA key, used to generate Tectonic Console's server certificate. 
-  # This field is mandatory if `ca_cert` is set.
-
-  # key:
-  # (optional) The algorithm used to generate ca_key. 
-  # The default value is currently recommended.
-  # This field is mandatory if `ca_cert` is set.
-
-  # keyAlg: RSA
-
-
-
-iscsi:
-
-  # (optional) Start iscsid.service to enable iscsi volume attachment. 
-  # enabled: false 
+baseDomain: openshiftdemo.org
 
 master:
   nodePools:
     - master 
 
-# The name of the cluster.
-
-# If used in a cloud-environment, this will be prepended to `baseDomain` resulting in the URL to the Tectonic console.
-
-#
-
-# Note: This field MUST be set manually prior to creating the cluster.
-
-# Warning: Special characters in the name like '.' may cause errors on OpenStack platforms due to resource name constraints.
-
-name: test1
+name: tectoniccluster
 
 networking:
-
-  # (optional) This declares the MTU used by Calico. 
-  # mtu: 
-  # (optional) This declares the IP range to assign Kubernetes pod IPs in CIDR notation.
-
   podCIDR: 10.2.0.0/16 
-
-  # (optional) This declares the IP range to assign Kubernetes service cluster IPs in CIDR notation.
-
-  # The maximum size of this IP range is /12
-
   serviceCIDR: 10.3.0.0/16 
 
-  # (optional) Configures the network to be used in Tectonic. One of the following values can be used:
-  #
-  # - "flannel": enables overlay networking only. This is implemented by flannel using VXLAN. 
-  #
-  # - "canal": enables overlay networking including network policy. Overlay is implemented by flannel using VXLAN. Network policy is implemented by Calico.  
-  #
-  # - "calico-ipip": [ALPHA] enables BGP based networking. Routing and network policy is implemented by Calico. Note this has been tested on baremetal installations only. 
-  #
-  # - "none": disables the installation of any Pod level networking layer provided by Tectonic. By setting this value, users are expected to deploy their own solution to enable network connectivity for Pods and Services. 
-  # type: flannel
-
 nodePools:
-    # The number of master nodes to be created. 
-    # This applies only to cloud platforms. 
   - count: 1
     name: master
-
-    # The number of worker nodes to be created.
-    # This applies only to cloud platforms. 
   - count: 1
     name: worker
 
-# The platform used for deploying. 
 platform: libvirt
 
-# The pull secret in JSON format.
-# This is known to be a "Docker pull secret" as produced by the docker login [1] command.
-# A sample JSON content is shown in [2].
-# You can download the pull secret from your Account overview page at [3].
-#
-# [1] https://docs.docker.com/engine/reference/commandline/login/
-#
-# [2] https://coreos.com/os/docs/latest/registry-authentication.html#manual-registry-auth-setup
-#
-# [3] https://account.coreos.com/overview
 pullSecret: '{"auths": {"quay.io": {"auth": "Y29yZW9zK3RlYzJfaWZidWdsandoYTNkaW4yYmlqY2MybjJlaTpLMVNEQjNVWTlHMUZQUFpKTFg5VTFOWlJIQjRURjA1WllEOTZBMjdSWTRYRVcwSVVKVkxWRFZFSDFDSlZNQlNS", "email": "" }}}'
 
 worker:
