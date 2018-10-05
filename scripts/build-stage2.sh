@@ -1,12 +1,11 @@
-#!/usr/bin/env bash  
+#!/usr/bin/env bash
 set -xe
 
 REVISION=1
 
-export PATH="${PATH}:/opt/app-root/src/installer/tectonic-dev/installer"
-
-git clone --depth=1 --branch=master https://github.com/openshift/installer.git
-pushd installer && bazel build tarball && bazel build smoke_tests
-tar -zxf bazel-bin/tectonic-dev.tar.gz
+# GIT
+mkdir /opt/app-root/bin
+mkdir /opt/app-root/pkg
+mkdir -p /opt/app-root/src/github.com/openshift
 
 GOBIN=~/.terraform.d/plugins go get github.com/dmacvicar/terraform-provider-libvirt
