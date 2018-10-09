@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -xe
 
-dnf install -y 'dnf-command(copr)'
-dnf copr enable -y vbatts/bazel
 dnf update -y
 dnf install -y \
     w3m \
     unzip \
     deltarpm pki-ca \
     kubernetes-client \
-    git gcc gcc-c++ libtool bazel golang \
+    git gcc gcc-c++ libtool golang \
     qemu-img libvirt libvirt-python libvirt-client libvirt-devel @virtualization \
     dnsmasq kubernetes-client
 
