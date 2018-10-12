@@ -16,3 +16,6 @@ run: build
 
 exec +args='/bin/bash':
 	docker exec -it smoke-test-installer {{args}}
+
+cleanup:
+	docker image rm {{TAG}} $(docker image ls -a | grep '^<none>' | awk '{print $3}')

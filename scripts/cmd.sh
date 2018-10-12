@@ -49,10 +49,10 @@ export OPENSHIFT_INSTALL_LIBVIRT_IMAGE=file:///opt/app-root/src/qemu-img/rhcos-q
 export KUBECONFIG=/opt/app-root/src/github.com/openshift/installer/auth/kubeconfig
 
 {
-    cd /opt/app-root/src/github.com/openshift || exit
+    cd /opt/app-root/src/github.com/openshift || exit 1
     git clone https://github.com/openshift/installer.git
 
-    cd /opt/app-root/src/github.com/openshift/installer || exit
+    cd /opt/app-root/src/github.com/openshift/installer || exit 1
     ./hack/build.sh
     ./bin/openshift-install cluster
     sleep 60s
