@@ -55,8 +55,7 @@ export KUBECONFIG=/opt/app-root/src/github.com/openshift/installer/auth/kubeconf
     cd /opt/app-root/src/github.com/openshift/installer || exit 1
     ./hack/build.sh
     ./bin/openshift-install cluster
-    sleep 90s
-
+    sleep 60s
     BOOTSTRAPIP=$(virsh --connect qemu+tcp://192.168.122.1/system domifaddr bootstrap | awk '/192/{print $4}')
     if [ -z "$BOOTSTRAPIP" ]; then
         exit 1
