@@ -15,7 +15,6 @@ build:
 	# TODO: automate ssh key generation
 	docker image build -t {{TAG}} .
 
-# Manually run the dl-rchos recipe beforehands
 run: build
 	#!/usr/bin/env bash
 	docker run --name {{TAG}} --net={{NET}} --privileged --rm -it \
@@ -24,3 +23,6 @@ run: build
 
 exec +args='/bin/bash':
 	docker exec -it smoke-test-installer {{args}}
+
+cleanup:
+	docker image rm {{TAG}} $(docker image ls -a | grep '^<none>' | awk '{print $3}')
