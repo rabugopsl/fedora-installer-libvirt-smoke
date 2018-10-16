@@ -6,6 +6,7 @@ VOLUME /opt/app-root/src/qemu-img
 
 ENV GOPATH=/opt/app-root
 ENV GOBIN=/opt/app-root/bin
+ENV KUBECONFIG=/opt/app-root/src/github.com/openshift/installer/auth/kubeconfig
 
 COPY ./ssh /root/.ssh
 COPY ./scripts /scripts
