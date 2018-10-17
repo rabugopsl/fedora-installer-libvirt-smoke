@@ -34,19 +34,20 @@ libvirtd -d --listen -f /etc/libvirt/libvirtd.conf
 virtlockd -d
 virtlogd -d
 
-{
-    cd /opt/app-root/src/github.com/openshift || exit 1
-    git clone https://github.com/openshift/installer.git
+cd /opt/app-root/src/github.com/openshift || exit 1
+git clone https://github.com/openshift/installer.git
 
-    cd /opt/app-root/src/github.com/openshift/installer || exit 1
-    ./hack/build.sh
-    ./bin/openshift-install cluster
-    sleep 60s
-    BOOTSTRAPIP=$(virsh --connect qemu+tcp://192.168.122.1/system domifaddr bootstrap | awk '/192/{print $4}')
-    if [ -z "$BOOTSTRAPIP" ]; then
-        exit 1
-    fi
-    BOOTSTRAPIP=${BOOTSTRAPIP::${#BOOTSTRAPIP}-3}
+cd /opt/app-root/src/github.com/openshift/installer || exit 1
+./hack/build.sh
+./bin/openshift-install cluster
+sleep 60s
+BOOTSTRAPIP=$(virsh --connect qemu+tcp://192.168.122.1/system domifaddr bootstrap | awk '/192/{print $4}')
+if [ -z "$BOOTSTRAPIP" ]; then
+    exit 1
+fi
+BOOTSTRAPIP=${BOOTSTRAPIP::${#BOOTSTRAPIP}-3}
+
+{
     eval $(ssh-agent -s) && ssh-add ${HOME}/.ssh/id_rsa
     ssh -oStrictHostKeyChecking=no core@${BOOTSTRAPIP} sudo journalctl -fu bootkube -u tectonic
 } || /bin/bash -i

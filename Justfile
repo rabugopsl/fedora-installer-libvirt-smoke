@@ -12,7 +12,8 @@ dl-rhcos src='http://aos-ostree.rhev-ci-vms.eng.rdu2.redhat.com/rhcos/images/clo
 	mv .{{outputfile}} {{outputfile}}
 
 build:
-	# TODO: automate ssh key generation
+	mkdir -p ./ssh
+	ssh-keygen -t rsa -b 4096 -C "admin@openshiftdemo.org" -N '' -f ./ssh/id_rsa
 	docker image build -t {{TAG}} .
 
 run: build
