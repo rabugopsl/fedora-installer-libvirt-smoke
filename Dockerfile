@@ -12,8 +12,8 @@ COPY ./ssh /root/.ssh
 COPY ./scripts /scripts
 COPY ./libvirt_config ./libvirt_config
 
-RUN /scripts/build-stage0.sh 
-RUN /scripts/build-stage1.sh 
+RUN /scripts/build-stage0.sh
+RUN /scripts/build-stage1.sh
 RUN /scripts/build-stage2.sh
 
 CMD [ "/scripts/cmd.sh" ]
