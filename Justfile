@@ -27,7 +27,7 @@ run +branch='master': build
 		--env BRANCH={{branch}} \
 		{{TAG}} 
 
-run-attached +branch='master': build
+run-attach +BRANch='master': build
 	#!/usr/bin/env bash
 	docker container run --name {{TAG}} --net={{NET}} --privileged --rm -it \
 		--volume "${PWD}"/ignore/rhcos-qemu.qcow2:{{QEMU_IMG_PATH_RHCOS}}:ro \
