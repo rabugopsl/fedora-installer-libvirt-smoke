@@ -9,12 +9,14 @@ ENV GOBIN=/opt/app-root/bin
 ENV KUBECONFIG=/opt/app-root/src/github.com/openshift/installer/auth/kubeconfig
 
 COPY ./ssh /root/.ssh
-COPY ./scripts /scripts
+COPY ./scripts_build /scripts
 COPY ./libvirt_config ./libvirt_config
 
 RUN /scripts/build-stage0.sh
 RUN /scripts/build-stage1.sh
 RUN /scripts/build-stage2.sh
+
+COPY ./scripts_command /scripts
 
 CMD [ "/scripts/cmd.sh" ]
 

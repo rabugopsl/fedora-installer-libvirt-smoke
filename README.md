@@ -9,7 +9,7 @@ Libvirt container to run installer smoke tests
 
 ## Build & Run
 * `just run [branch]`        - Creates a background running container after the image is built.
-* `just run-attach [branch]` - Creates a background running container and sshs into it.
+* `just run-attach [branch]` - Creates a background running container.
 
 `branch` is an optional parameter which specifies the git branch to clone for the installer.
 
