@@ -8,9 +8,10 @@ Libvirt container to run installer smoke tests
 `just dl-rhcos`
 
 ## Build & Run
-* `just run [branch]`        - Creates a background running container after the image is built. It must be stopped using `just stop`.
-* `just run-attach [branch]` - Creates a foreground running container. It will be terminated if the terminal is closed or the process stopped in any way.
+* `just run [repo_owner] [branch]`        - Creates a background running container after the image is built. It must be stopped using `just stop`.
+* `just run-attach [repo_owner] [branch]` - Creates a foreground running container. It will be terminated if the terminal is closed or the process stopped in any way.
 
+`repo_owner` is an optional parameter which specifies the owner of the git repository to clone for the installer.
 `branch` is an optional parameter which specifies the git branch to clone for the installer.
 
 ## Stop
