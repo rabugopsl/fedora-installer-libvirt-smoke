@@ -20,18 +20,18 @@ build:
 	fi
 	docker image build -t {{TAG}} .
 
-run +branch='master': build
+run repo_owner='openshift' branch='master': build
 	#!/usr/bin/env bash
 	docker container run --name {{TAG}} --net={{NET}} --privileged --rm -d \
 		--volume "${PWD}"/ignore/rhcos-qemu.qcow2:{{QEMU_IMG_PATH_RHCOS}}:ro \
-		--env BRANCH={{branch}} \
+		--env REPO_OWNER={{repo_owner}} --env BRANCH={{branch}} \
 		{{TAG}} 
 
-run-attach +branch='master': build
+run-attach repo_owner='openshift' branch='master': build
 	#!/usr/bin/env bash
 	docker container run --name {{TAG}} --net={{NET}} --privileged --rm -it \
 		--volume "${PWD}"/ignore/rhcos-qemu.qcow2:{{QEMU_IMG_PATH_RHCOS}}:ro \
-		--env BRANCH={{branch}} \
+		--env REPO_OWNER={{repo_owner}} --env BRANCH={{branch}} \
 		{{TAG}} 
 
 exec +args='/bin/bash':
