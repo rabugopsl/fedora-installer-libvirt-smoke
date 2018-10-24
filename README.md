@@ -18,7 +18,15 @@ Libvirt container to run installer smoke tests
 `just stop`
 
 ## Enter the container from a different terminal
-`just exec`
+`just exec` [args]                        - Defaults to `/bin/bash`
+
+`args` is an optional parameter which contains instructions to execute within the container.
+
+## Execute a command as soon as the cluster is available
+`just exec-ready` [max-wait] [args]        - Executes the specified command once the cluster is available. Defaults to the cluster's `bootstrap` journal follow.
+
+`max-wait` is an optional parameter which specifies the maximum amount of seconds to wait for the cluster to be available. Defaults to 300 seconds.
+`args` is an optional parameter which contains instructions to execute within the container. 
 
 ## Status
   1. The cluster completes but takes *a long time* on my machine, so the smoke tests time out first.
