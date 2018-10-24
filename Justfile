@@ -37,9 +37,9 @@ run-attach repo_owner='openshift' branch='master': build
 exec +args='/bin/bash':
 	docker container exec -it {{TAG}} {{args}}
 
-exec-ready max-wait='10' cmd='':
+exec-ready max-wait='10' args='':
 	#!/usr/bin/env bash
-	docker container exec -it {{TAG}} bash -c "/scripts/exec_when_ready.sh {{max-wait}} {{cmd}}"
+	docker container exec -it {{TAG}} bash -c "/scripts/exec_when_ready.sh {{max-wait}} {{args}}"
 
 stop:
 	docker container stop {{TAG}}

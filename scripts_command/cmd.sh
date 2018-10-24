@@ -43,16 +43,6 @@ git checkout $BRANCH || exit 1
 ./hack/build.sh
 ./bin/openshift-install cluster
 
-#sleep 60s
-
-#BOOTSTRAPIP=$(virsh --connect qemu+tcp://192.168.122.1/system domifaddr bootstrap | awk '/192/{print $4}')
-#if [ -z "$BOOTSTRAPIP" ]; then
-#    exit 1
-#fi
-#BOOTSTRAPIP=${BOOTSTRAPIP::${#BOOTSTRAPIP}-3}
-
 {
     bash /scripts/exec_when_ready.sh 60*30
-    #eval $(ssh-agent -s) && ssh-add ${HOME}/.ssh/id_rsa
-    #ssh -oStrictHostKeyChecking=no core@${BOOTSTRAPIP} sudo journalctl -fu bootkube -u tectonic
 } || exit 1
