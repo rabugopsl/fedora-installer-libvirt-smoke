@@ -34,11 +34,11 @@ libvirtd -d --listen -f /etc/libvirt/libvirtd.conf
 virtlockd -d
 virtlogd -d
 
-mkdir -p "/opt/app-root/src/github.com/${REPO_OWNER}"
-cd "/opt/app-root/src/github.com/${REPO_OWNER}" || exit 1
-git clone "https://github.com/${REPO_OWNER}/installer.git"
+mkdir -p "/opt/app-root/src/github.com/openshift"
+cd "/opt/app-root/src/github.com/openshift"
+git clone "https://github.com/${REPO_OWNER}/installer.git" || exit 1
 
-cd "/opt/app-root/src/github.com/${REPO_OWNER}/installer" || exit 1
+cd "/opt/app-root/src/github.com/openshift/installer" || exit 1
 git checkout $BRANCH || exit 1
 ./hack/build.sh
 ./bin/openshift-install cluster
