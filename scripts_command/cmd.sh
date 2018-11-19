@@ -3,7 +3,9 @@ set -x
 
 chmod 700 /root/.ssh
 chmod 600 /root/.ssh/*
-source "${HOME}/.bash_profile"
+
+# shellcheck disable=SC1091
+source /root/.bash_profile
 
 # DNSMASQ setup
 cat <<EOF > /etc/dnsmasq.conf
@@ -35,11 +37,11 @@ virtlockd -d
 virtlogd -d
 
 mkdir -p "/opt/app-root/src/github.com/openshift"
-cd "/opt/app-root/src/github.com/openshift"
+cd "/opt/app-root/src/github.com/openshift" || exit 1
 git clone "https://github.com/${REPO_OWNER}/installer.git" || exit 1
 
 cd "/opt/app-root/src/github.com/openshift/installer" || exit 1
-git checkout $BRANCH || exit 1
+git checkout "$BRANCH" || exit 1
 ./hack/build.sh
 ./bin/openshift-install cluster --log-level debug
 

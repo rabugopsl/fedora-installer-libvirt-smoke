@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -xe
 
-REVISION=1
+export REVISION=1
 
 # GIT
 mkdir /opt/app-root/bin
