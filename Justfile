@@ -5,11 +5,15 @@ NET = 'bridge'
 QEMU_IMG_PATH_RHCOS = "/opt/app-root/src/qemu-img/rhcos-qemu.qcow2"
 SSH_KEY_PATH = "/root/.ssh"
 
-dl-rhcos src='http://aos-ostree.rhev-ci-vms.eng.rdu2.redhat.com/rhcos/images/cloud/latest/rhcos-qemu.qcow2.gz' outputfile='rhcos-qemu.qcow2':
+dl-rhcos src='https://releases-rhcos.svc.ci.openshift.org/storage/releases/maipo/47.103/redhat-coreos-maipo-47.103-qemu.qcow2' outputfile='rhcos-qemu.qcow2':
 	#!/usr/bin/env bash
 	mkdir -p ignore
 	pushd ignore
-	curl {{src}} | gunzip > .{{outputfile}}
+	if [[ ${src:${#src}-3:${#src}} == '.gz' ]]; then
+	  curl {{src}} | gunzip > .{{outputfile}}
+	else
+	  curl -SL {{src}} -o .{{outputfile}} --compressed
+	fi
 	mv .{{outputfile}} {{outputfile}}
 
 build:
