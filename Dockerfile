@@ -1,4 +1,5 @@
-FROM fedora:28
+#FROM fedora:28
+FROM registry.fedoraproject.org/fedora
 
 WORKDIR /opt/app-root/src
 
@@ -17,6 +18,7 @@ RUN /scripts/build-stage1.sh
 RUN /scripts/build-stage2.sh
 
 COPY ./scripts_command /scripts
+COPY ./scripts_config /root
 
 CMD [ "/scripts/cmd.sh" ]
 

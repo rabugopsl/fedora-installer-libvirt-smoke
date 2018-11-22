@@ -43,8 +43,5 @@ git clone "https://github.com/${REPO_OWNER}/installer.git" || exit 1
 cd "/opt/app-root/src/github.com/openshift/installer" || exit 1
 git checkout "$BRANCH" || exit 1
 ./hack/build.sh
-./bin/openshift-install cluster --log-level debug
-
-{
-    bash /scripts/exec_when_ready.sh 60*30
-} || exit 1
+#./bin/openshift-install create cluster --log-level debug
+bash -i

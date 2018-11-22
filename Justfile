@@ -5,15 +5,19 @@ NET = 'bridge'
 QEMU_IMG_PATH_RHCOS = "/opt/app-root/src/qemu-img/rhcos-qemu.qcow2"
 SSH_KEY_PATH = "/root/.ssh"
 
-dl-rhcos src='https://releases-rhcos.svc.ci.openshift.org/storage/releases/maipo/47.103/redhat-coreos-maipo-47.103-qemu.qcow2' outputfile='rhcos-qemu.qcow2':
+dl-rhcos src='' outputfile='rhcos-qemu.qcow2':
 	#!/usr/bin/env bash
+	src={{src}}
+	if [ -z $src ]; then
+	    echo "SRC1: $src"
+	    build=$(curl -s https://releases-rhcos.svc.ci.openshift.org/storage/releases/maipo/builds.json | jq -r '.builds[0]')
+	    image=$(curl -s https://releases-rhcos.svc.ci.openshift.org/storage/releases/maipo/$build/meta.json | jq -r '.images["qemu"].path')
+	    src="https://releases-rhcos.svc.ci.openshift.org/storage/releases/maipo/$build/$image"
+	    echo "SRC2: $src"
+	fi
 	mkdir -p ignore
 	pushd ignore
-	if [[ ${src:${#src}-3:${#src}} == '.gz' ]]; then
-	  curl {{src}} | gunzip > .{{outputfile}}
-	else
-	  curl -SL {{src}} -o .{{outputfile}} --compressed
-	fi
+	curl -SL $src -o .{{outputfile}} --compressed
 	mv .{{outputfile}} {{outputfile}}
 
 build:
